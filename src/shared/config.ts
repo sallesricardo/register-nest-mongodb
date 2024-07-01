@@ -21,11 +21,9 @@ export const mongoDB: DBDriverParams = {
     database: process.env.MONGODB_DATABASE || 'test',
 }
 
-export const databaseUri = (driverParams: DBDriverParams) => {
-    const uri = `${driverParams.driver}://${driverParams.user}:${driverParams.passwd}@${driverParams.host}:${driverParams.port}/${driverParams.database}`
-    console.log('databaseUri', uri)
-    return uri
-}
+export const databaseUri = (driverParams: DBDriverParams) => (
+    `${driverParams.driver}://${driverParams.user}:${driverParams.passwd}@${driverParams.host}:${driverParams.port}/${driverParams.database}`
+)
 
 export const locationApi = {
     url: process.env.LOCATION_API_URL || 'https://viacep.com.br/ws/{zipcode}/json/'

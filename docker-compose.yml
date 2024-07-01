@@ -10,14 +10,13 @@ services:
       - .env
     environment:
       NODE_ENV: development
-      PORT: 80
     ports:
-      - 3000:80
+      - 3000:{PORT:-80}
 
   mongodb:
     image: mongodb/mongodb-community-server:latest
     ports:
-      - 27017:27017
+      - 27017:${MONGODB_PORT:-27017}
     environment:
       MONGODB_INITDB_ROOT_USERNAME: ${MONGODB_DEFAULT_ROOT:-root}
       MONGODB_INITDB_ROOT_PASSWORD: ${MONGODB_DEFAULT_PASSWORD:-root}
@@ -31,8 +30,8 @@ services:
     environment:
       ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_ROOT:-root}
       ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD:-root}
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_DEFAULT_ROOT:-root}:${MONGODB_DEFAULT_PASSWORD:-root}@mongodb:27017
+      ME_CONFIG_MONGODB_PORT: ${MONGODB_PORT:-27017}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_DEFAULT_ROOT:-root}:${MONGODB_DEFAULT_PASSWORD:-root}@mongodb:${MONGODB_PORT:-27017}
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_DEFAULT_ROOT:-root}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_DEFAULT_PASSWORD:-root}
     depends_on:
