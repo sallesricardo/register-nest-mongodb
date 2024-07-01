@@ -7,5 +7,8 @@ export const UserSchema = new Schema({
     phone: String,
     birth: String,
     zipcode: String,
+    city: String,
+    ddd: String,
+    state: String,
 });
 

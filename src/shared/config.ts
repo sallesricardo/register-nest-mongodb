@@ -27,3 +27,6 @@ export const databaseUri = (driverParams: DBDriverParams) => {
     return uri
 }
 
+export const locationApi = {
+    url: process.env.LOCATION_API_URL || 'https://viacep.com.br/ws/{zipcode}/json/'
+}

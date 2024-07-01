@@ -20,14 +20,18 @@ export class MongoUserRepository implements UserRepository {
         }
         const createdUser = new this.userModel(user);
         const savedUser = await createdUser.save();
+        console.log("savedUser", savedUser)
         return new User(
-            savedUser._id.toString(),
+            savedUser._id?.toString(),
             savedUser.name,
             savedUser.cpf,
             savedUser.email,
             savedUser.phone,
             savedUser.birth,
             savedUser.zipcode,
+            savedUser.city,
+            savedUser.ddd,
+            savedUser.state,
         );
     }
 
@@ -41,6 +45,9 @@ export class MongoUserRepository implements UserRepository {
             user.phone,
             user.birth,
             user.zipcode,
+            user.city,
+            user.ddd,
+            user.state,
         ))
     }
 
@@ -54,6 +61,9 @@ export class MongoUserRepository implements UserRepository {
             user.phone,
             user.birth,
             user.zipcode,
+            user.city,
+            user.ddd,
+            user.state,
         ));
     }
 }
