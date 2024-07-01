@@ -1,4 +1,5 @@
-import { IsString, IsEmail, IsDateString, IsNotEmpty } from 'class-validator';
+import { IsString, IsEmail, IsDateString, IsNotEmpty, Validate } from 'class-validator';
+import { CPFValidate } from '../../shared/CPFValidation';
 
 export class User {
     constructor(
@@ -22,6 +23,7 @@ export class InputCreateUserDto {
 
     @IsNotEmpty()
     @IsString()
+    @Validate(CPFValidate)
     cpf: string;
 
     @IsEmail()
