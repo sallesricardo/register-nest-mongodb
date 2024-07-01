@@ -20,7 +20,6 @@ export class MongoUserRepository implements UserRepository {
         }
         const createdUser = new this.userModel(user);
         const savedUser = await createdUser.save();
-        console.log("savedUser", savedUser)
         return new User(
             savedUser._id?.toString(),
             savedUser.name,

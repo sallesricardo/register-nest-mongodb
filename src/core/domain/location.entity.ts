@@ -4,6 +4,7 @@ export class Location {
         public logradouro: string,
         public complemento: string,
         public unidade: string,
+        public bairro: string,
         public localidade: string,
         public uf: string,
         public ibge: string,

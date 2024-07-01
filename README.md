@@ -76,27 +76,33 @@ src/
 |       |-- user.repository.ts
 |       |-- user.schema.ts
 |   |-- viacepApi/
-|       |--
+|       |-- location.repository.ts
+|       |-- location.schema.ts
 |-- core/
 |   |-- domain/
+|       |-- location.entity.ts
 |       |-- user.entity.ts
 |   |-- use-cases/
 |       |-- create-user.use-case.ts
 |       |-- find-all-users.use-case.ts
-|       |-- fetch-external-data.use-case.ts
+|       |-- find-user.use-case.ts
+|-- modules/
+|   |-- app.module.ts
+|   |-- user.module.ts
 |-- ports/
-|   |-- inbound/
+|   |-- location/
+|       |-- location.repository.ts
+|   |-- user/
 |       |-- user.controller.ts
-|       |-- external-data.controller.ts
-|   |-- outbound/
 |       |-- user-repository.ts
-|       |-- http-client.port.ts
-|-- app.module.ts
+|-- app.controller.ts
+|-- app.service.ts
+|-- main.ts
 ```
 
 ## Running the Application
 
-### Using npm
+### Using npm or yarn or pnpm
 
 1. Start the MongoDB server:
 
@@ -109,6 +115,14 @@ docker run -d -p 27017:27017 --name mongodb mongo
 ```bash
 npm run start
 ```
+or
+```bash
+yarn start
+```
+or
+```bash
+pnpm start
+```
 
 The application will be available at `http://localhost:3000`.
 
@@ -119,7 +133,7 @@ The application will be available at `http://localhost:3000`.
 Build the Docker image for the application:
 
 ```bash
-docker build -t my-hexagonal-nestjs-project .
+docker build -t register-nest-mongodb-project .
 ```
 
 ### Running the Docker Container
@@ -127,36 +141,14 @@ docker build -t my-hexagonal-nestjs-project .
 Run the Docker container:
 
 ```bash
-docker run -d -p 3000:3000 --name my-hexagonal-nestjs-project --link mongodb:mongo my-hexagonal-nestjs-project
+docker run -d -p 3000:3000 --name register-nest-mongodb-project --link mongodb:mongo register-nest-mongodb-project
 ```
 
 The application will be available at `http://localhost:3000`.
 
 ## Using Docker Compose
 
-1. Create a `docker-compose.yml` file with the following content:
-
-```yaml
-version: '3.8'
-
-services:
-  mongodb:
-    image: mongo
-    container_name: mongodb
-    ports:
-      - '27017:27017'
-
-  app:
-    build: .
-    container_name: my-hexagonal-nestjs-project
-    ports:
-      - '3000:3000'
-    depends_on:
-      - mongodb
-    environment:
-      - MONGODB_URI=mongodb://mongodb:27017/nest
-      - API_BASE_URL=https://api.example.com
-```
+1. The file `docker-compose.yml` is already configured in the repository with the project, MongoDB, and mongodb-express.
 
 2. Start the services:
 
@@ -174,9 +166,12 @@ The application will be available at `http://localhost:3000`.
   - Request body:
     ```json
     {
-      "name": "John Doe",
-      "email": "john@example.com",
-      "password": "password123"
+        "name": "John",
+        "cpf": "123.456.789-00",
+        "email": "john@domain.com",
+        "phone": "11999991234",
+        "birth": "1970-01-01", // YYYY-MM-DD
+        "zipcode": "01001-000"
     }
     ```
 
@@ -197,7 +192,3 @@ The application will be available at `http://localhost:3000`.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-This `README.md` file provides a comprehensive overview of the project, including setup instructions, project structure, usage of Docker and Docker Compose, endpoints, and contributing guidelines. Adjust the content as needed to fit your specific project details.
